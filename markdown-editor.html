@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">    
+    <title>A Markdown editor in Vue.js</title>
+</head>
+<body>
+    <div id="app" class="cf">
+        <div class="fl w-50">
+            <div class="pa2">
+                <button v-on:click="surroundTextWith('**')" class="b">b</button>
+                <button v-on:click="surroundTextWith('_')" class="i">i</button>
+            </div>
+            <textarea id="editor" class="code moon-gray bg-black hover-moon-gray hover-bg-black db border-box hover-black w-100 vh-100 bn brn mn" :value="input" @input="update"></textarea>
+        </div>
+        <div class="fl w-50 pa2" v-html="compiledMarkdown"></div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>    
+    <script src="https://unpkg.com/marked@0.3.6"></script>
+    <script src="https://unpkg.com/lodash@4.16.0"></script>    
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                input: '# hello'
+            },
+            computed: {
+                compiledMarkdown: function() {
+                    return marked(this.input, {sanitize: true});
+                }
+            },
+            methods: {
+                surroundTextWith: function ( markdownTag ) // javascript
+                {        
+                    // obtain the object reference for the textarea>
+                    var txtarea = document.getElementById("editor");
+                    // obtain the index of the first selected character
+                    var start = txtarea.selectionStart;
+                    // obtain the index of the last selected character
+                    var finish = txtarea.selectionEnd;
+                    //obtain all Text
+                    var allText = txtarea.value;
+                
+                    // obtain the selected text
+                    var sel = allText.substring(start, finish);
+                    //append te text;
+                    var newText=allText.substring(0, start)+markdownTag+sel+markdownTag+allText.substring(finish, allText.length);
+                
+                    txtarea.value=newText;
+                },
+                update: _.debounce(function(e){
+                    this.input = e.target.value;
+                }, 300)
+            }
+        });
+
+    </script>
+</body>
+</html>
