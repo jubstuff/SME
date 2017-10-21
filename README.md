@@ -2,6 +2,8 @@
 
 A simple Markdown editor written in Vue.js
 
+![SME - Simple Markdown Editor](https://cldup.com/inToJDU5sv.png)
+
 ## Dependencies
 
  * [Tachyons](https://github.com/tachyons-css/tachyons)
