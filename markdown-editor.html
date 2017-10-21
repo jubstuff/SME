@@ -16,7 +16,7 @@
             </div>
             <textarea id="editor" class="code moon-gray bg-black hover-moon-gray hover-bg-black db border-box hover-black w-100 vh-100 bn brn mn" :value="input" @input="update"></textarea>
         </div>
-        <div class="fl w-50 pa2" v-html="compiledMarkdown"></div>
+        <div class="near-black bg-light-gray fl w-50 pa2 vh-100 sans-serif" v-html="compiledMarkdown"></div>
     </div>
     <script src="https://unpkg.com/vue"></script>    
     <script src="https://unpkg.com/marked@0.3.6"></script>
@@ -25,7 +25,17 @@
         var app = new Vue({
             el: '#app',
             data: {
-                input: '# hello'
+                input: `# Hello I'm a Markdown editor
+
+---
+
+\`\`\`php
+class Product {
+  public function __construct() {
+    parent::__construct();
+  }
+\`\`\`
+---`
             },
             computed: {
                 compiledMarkdown: function() {
